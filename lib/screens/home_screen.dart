@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = -1;
+  int LogoutSelected = 0;
   bool isDark = false;
 
   @override
@@ -413,6 +414,7 @@ class EmployeeChartCard extends StatelessWidget {
     );
   }
 }
+
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
 
@@ -422,6 +424,8 @@ class SideMenu extends StatefulWidget {
 
 class _SideMenuState extends State<SideMenu> {
   int selectedIndex = 0;
+  bool isLogoutSelected = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -435,28 +439,32 @@ class _SideMenuState extends State<SideMenu> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
+                // 🔵 Logo
                 Row(
                   children: const [
                     Icon(Icons.rocket_launch, color: Colors.blue),
                     SizedBox(width: 10),
-                    Text("Excelhr",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                      "Excelhr",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
 
                 const SizedBox(height: 25),
 
+                // 🔵 TOP MENU
                 _menuItem(Icons.grid_view, "Dashboard", 0),
                 _menuItem(Icons.group, "Employee", 1),
-                _menuItem(Icons.person, "Profile", 2),
-                _menuItem(Icons.settings, "Settings", 3),
-                _menuItem(Icons.logout, "Log out", 4),
 
                 const SizedBox(height: 20),
 
+                // 🔵 Upgrade Card
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -471,17 +479,22 @@ class _SideMenuState extends State<SideMenu> {
                         child: Icon(Icons.flash_on, color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
+
                       const Text(
                         "Upgrade your plan",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+
                       const SizedBox(height: 5),
+
                       const Text(
                         "Your trial plan ends in 13 days. Upgrade for full potential.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
+
                       const SizedBox(height: 10),
+
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -490,15 +503,60 @@ class _SideMenuState extends State<SideMenu> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Center(
-                          child: Text("See plans",
-                              style: TextStyle(color: Colors.white)),
+                          child: Text(
+                            "See plans →",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
 
                 const SizedBox(height: 20),
+
+                // 🔵 BOTTOM MENU
+                _menuItem(Icons.person, "Profile", 2),
+                _menuItem(Icons.settings, "Settings", 3),
+
+                const SizedBox(height: 10),
+
+                // 🔴 Logout
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLogoutSelected = true;   // 🔥 red highlight
+                      selectedIndex = -1;        // 🔥 remove menu selection
+                    });
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: isLogoutSelected
+                          ? const Color(0xFFFFEAEA)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: isLogoutSelected ? Colors.red : Colors.grey,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          "Log out",
+                          style: TextStyle(
+                            color: isLogoutSelected ? Colors.red : Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -507,52 +565,56 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
+  ////////////////////////////////////////////////////
+
   Widget _menuItem(IconData icon, String text, int index) {
-    bool selected = selectedIndex == index;
+    bool isSelected = selectedIndex == index;
 
     return GestureDetector(
       onTap: () {
         setState(() {
           selectedIndex = index;
+          isLogoutSelected = false; // 🔥 logout remove
         });
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-
-          // 🔥 Different styles
-          gradient: selected && index == 0
-              ? const LinearGradient(
-            colors: [Color(0xFF1E63E9), Color(0xFF2E86FF)],
-          )
-              : null,
-
-          color: selected && index != 0
-              ? const Color(0xFFE7EEF9) // Light blue
+          // 🔥 Dashboard blue, others grey
+          color: isSelected
+              ? (index == 0 ? Colors.blue : const Color(0xFFE5E7EB))
               : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+
+          // 🔥 shadow only dashboard
+          boxShadow: (isSelected && index == 0)
+              ? [
+            BoxShadow(
+              color: Colors.blue.withOpacity(0.3),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            )
+          ]
+              : [],
         ),
         child: Row(
           children: [
             Icon(
               icon,
-              color: selected
+              color: isSelected
                   ? (index == 0 ? Colors.white : Colors.blue)
                   : Colors.grey,
             ),
-
-            const SizedBox(width: 12),
-
+            const SizedBox(width: 10),
             Text(
               text,
               style: TextStyle(
-                fontSize: 14,
-                color: selected
+                color: isSelected
                     ? (index == 0 ? Colors.white : Colors.blue)
                     : Colors.grey,
                 fontWeight:
-                selected ? FontWeight.w600 : FontWeight.normal,
+                isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
           ],
@@ -560,4 +622,4 @@ class _SideMenuState extends State<SideMenu> {
       ),
     );
   }
-  }
+}
