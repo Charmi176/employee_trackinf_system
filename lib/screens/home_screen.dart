@@ -171,6 +171,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 BirthdayCard(isDark: isDark),
 
+                const SizedBox(height: 20),
+
+                InterviewCard(isDark: isDark),
+
+                const SizedBox(height: 20),
+
+                MessageCard(isDark: isDark),
+
+                const SizedBox(height: 20),
+
+                RecentActivityCard(),
+
 
               ],
             ),
@@ -460,11 +472,51 @@ class RecruitmentItem extends StatelessWidget {
           children: [
             Text(title),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("$inbox Inbox   "),
-                Text("$interview Interviewed   "),
-                Text("$interview Interviewed   "),
-                Text("$rejected Rejected"),
+
+                // 🔵 LEFT SIDE (title + stats)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+
+                      const SizedBox(height: 4),
+
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 4,
+                        children: [
+                          Text("$inbox Inbox",
+                              style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                          Text("$interview Interviewed",
+                              style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                          Text("$rejected Rejected",
+                              style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(width: 10),
+
+                // 🔵 RIGHT SIDE (Hired badge)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    "$hired Hired",
+                    style: const TextStyle(color: Colors.blue, fontSize: 12),
+                  ),
+                ),
               ],
             )
           ],
@@ -951,35 +1003,427 @@ class BirthdayCard extends StatelessWidget {
           ),
 
           // 👉 RIGHT SIDE ICON
-          Stack(
-            children: [
+          Expanded(
+            child: Stack(
+              children: [
 
-              // 🎂 Cake Icon
-              Icon(
-                Icons.cake,
-                size: 180,
-                color: isDark
-                    ? Colors.white.withOpacity(0.2)
-                    : Colors.grey.withOpacity(0.4),
+                // 🎂 BIG BACKGROUND CAKE
+                Positioned(
+                  right: -20,   // 🔥 half bahar nikle
+                  bottom: -20,
+                  child: Icon(
+                    Icons.cake,
+                    size: 120,   // 🔥 mota size
+                    color: isDark
+                        ? Colors.white.withOpacity(0.15)
+                        : Colors.grey.withOpacity(0.3),
+                  ),
+                ),
+
+                // 🟡 DOT (top-right)
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: const BoxDecoration(
+                      color: Colors.orange,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+class InterviewCard extends StatelessWidget {
+  final bool isDark;
+
+  const InterviewCard({super.key, required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.grey[900] : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 12,
+            color: Colors.black.withOpacity(0.05),
+          )
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // 🔵 Header
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Upcoming Interviews",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
               ),
 
-              // 🟡 Yellow Dot
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.orange,
-                    shape: BoxShape.circle,
-                  ),
+              Text(
+                "Today, 17 Nov 2024",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
                 ),
               ),
             ],
+          ),
+
+          const SizedBox(height: 20),
+
+          // 🔵 LIST
+          _buildItem("10.30", "Web Developer", "Robinson Cruso"),
+          const SizedBox(height: 15),
+
+          _buildItem("11.45", "UI/UX Designer", "Rabiul Basher"),
+          const SizedBox(height: 15),
+
+          _buildItem("12.30", "Software Engineer", "Rohan Robin"),
+
+          const SizedBox(height: 20),
+
+          // 🔵 BUTTON
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Center(
+              child: Text(
+                "View more interviews",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  //////////////////////////////////////////////////////////
+
+  Widget _buildItem(String time, String role, String name) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        // 🔵 TIME
+        SizedBox(
+          width: 60,
+          child: Text(
+            time,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+
+        // 🔵 LINE
+        Container(
+          width: 1,
+          height: 60,
+          color: Colors.grey.shade300,
+        ),
+
+        const SizedBox(width: 10),
+
+        // 🔵 CARD
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.black.withOpacity(0.05),
+                )
+              ],
+            ),
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      role,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const Icon(Icons.more_horiz, color: Colors.grey)
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+class MessageCard extends StatelessWidget {
+  final bool isDark;
+
+  const MessageCard({super.key, required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.grey[900] : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: Colors.black.withOpacity(0.05),
+          )
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // 🔵 HEADER
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text("New Message",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16)),
+              Icon(Icons.more_horiz, color: Colors.grey)
+            ],
+          ),
+
+          const SizedBox(height: 15),
+
+          _buildMessage(
+            "assets/images/f1.jpg",
+            "Tayeb Rahman",
+            "Great service by Nyales thank...",
+            isActive: true,
+          ),
+
+          const SizedBox(height: 12),
+
+          _buildMessage(
+            "assets/images/f2.png",
+            "Abu Toha",
+            "Please tell me about it",
+          ),
+
+          const SizedBox(height: 12),
+
+          _buildMessage(
+            "assets/images/f3.jpg",
+            "Taranta Aley",
+            "I want to Leave for Today...",
+            isSelected: true,
           ),
         ],
       ),
     );
   }
+
+  ////////////////////////////////////////////////
+
+  Widget _buildMessage(String img, String name, String msg,
+      {bool isActive = false, bool isSelected = false}) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.grey.shade100 : Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+      ),
+
+      child: Row(
+        children: [
+
+          CircleAvatar(
+            radius: 22,
+            backgroundImage: AssetImage(img),
+          ),
+
+          const SizedBox(width: 10),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600)),
+                const SizedBox(height: 3),
+                Text(msg,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12)),
+              ],
+            ),
+          ),
+
+          if (isActive)
+            Container(
+              width: 8,
+              height: 8,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                shape: BoxShape.circle,
+              ),
+            )
+        ],
+      ),
+    );
+  }
+}
+class RecentActivityCard extends StatelessWidget {
+  const RecentActivityCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(22),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF1E63E9), Color(0xFF2E86FF)],
+        ),
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // 🔵 TOP ROW
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Recent Activity",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16)),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text("10:40 AM",
+                    style: TextStyle(color: Colors.white)),
+              )
+            ],
+          ),
+
+          const SizedBox(height: 15),
+
+          const Text("You Posted a New Job",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold)),
+
+          const SizedBox(height: 8),
+
+          const Text(
+            "Kindly check the requirements and terms of work and make sure everything is right.",
+            style: TextStyle(color: Colors.white70, fontSize: 12),
+          ),
+
+          const SizedBox(height: 15),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              const Text("Today: 12 Activities",
+                  style: TextStyle(color: Colors.white70)),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text("See All Activity",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600)),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+Widget footer() {
+  return Column(
+    children: [
+      const SizedBox(height: 20),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Divider(
+          thickness: 1,
+          color: Colors.grey.shade300,
+        ),
+      ),
+      const SizedBox(height: 10),
+      Center(
+        child: Text(
+          "© 2024 ExcelHR Employee Tracking System. All rights reserved.",
+          style: TextStyle(
+            color: Colors.grey.shade500,
+            fontSize: 12,
+          ),
+        ),
+      ),
+      const SizedBox(height: 20),
+    ],
+  );
 }
