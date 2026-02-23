@@ -11,11 +11,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = -1;
   int LogoutSelected = 0;
+  int touchedIndex = -1;
   bool isDark = false;
+
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     return Scaffold(
+      key: _scaffoldKey,
       drawer: const SideMenu(),
       backgroundColor: isDark ? Colors.black : const Color(0xFFF3F4F6),
 
@@ -92,16 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(width: 10),
 
                         // ☰ Menu (Square)
-                        Builder(
-                          builder: (context) {
-                            return CircleIcon(
-                              icon: Icons.menu,
-                              isSelected: selectedIndex == 2,
-                              isSquare: true,
-                              onTap: () {
-                                Scaffold.of(context).openDrawer();
-                              },
-                            );
+                        CircleIcon(
+                          icon: Icons.menu,
+                          isSelected: false,
+                          isSquare: true,
+                          onTap: () {
+                            _scaffoldKey.currentState?.openDrawer();
                           },
                         ),
                       ],
@@ -356,66 +358,157 @@ class StatCard extends StatelessWidget {
 
 //////////////////////////////////////////////////////////
 
-class EmployeeChartCard extends StatelessWidget {
+class EmployeeChartCard extends StatefulWidget {
   final bool isDark;
 
   const EmployeeChartCard({super.key, required this.isDark});
+
+  @override
+  State<EmployeeChartCard> createState() => _EmployeeChartCardState();
+}
+
+class _EmployeeChartCardState extends State<EmployeeChartCard> {
+  int touchedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        color: widget.isDark ? Colors.grey[900] : Colors.white,
+        borderRadius: BorderRadius.circular(22),
       ),
       child: Column(
         children: [
-          Text("Total Employees",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? Colors.white : Colors.black)),
+          Text(
+            "Total Employees",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: widget.isDark ? Colors.white : Colors.black,
+            ),
+          ),
 
           const SizedBox(height: 20),
 
           SizedBox(
-            height: 160,
+            height: 180,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                PieChart(
-                  PieChartData(
-                    centerSpaceRadius: 50,
-                    sections: [
-                      PieChartSectionData(
-                        value: 65,
-                        color: Colors.blue,
-                        showTitle: false,
+
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+
+                    PieChart(
+                      PieChartData(
+                        startDegreeOffset: 270,
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 55,
+
+                        pieTouchData: PieTouchData(
+                          touchCallback: (event, response) {
+                            if (!event.isInterestedForInteractions ||
+                                response == null ||
+                                response.touchedSection == null) {
+                              setState(() {
+                                touchedIndex = -1;
+                              });
+                              return;
+                            }
+
+                            setState(() {
+                              touchedIndex =
+                                  response.touchedSection!.touchedSectionIndex;
+                            });
+                          },
+                        ),
+
+                        sections: List.generate(2, (index) {
+                          final isTouched = index == touchedIndex;
+
+                          return PieChartSectionData(
+                            value: index == 0 ? 65 : 35,
+                            color: index == 0
+                                ? const Color(0xFF1E63E9)
+                                : const Color(0xFFE64980),
+
+                            radius: isTouched ? 22 : 18,
+                            showTitle: false, // 🔥 remove text from chart
+                          );
+                        }),
                       ),
-                      PieChartSectionData(
-                        value: 35,
-                        color: Colors.pink,
-                        showTitle: false,
+                    ),
+
+                    // 🔵 Center Number
+                    Text(
+                      "475",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: widget.isDark ? Colors.white : Colors.black,
                       ),
-                    ],
-                  ),
+                    ),
+
+                    // 🔥 TOOLTIP BOX
+                    if (touchedIndex != -1)
+                      Positioned(
+                        top: touchedIndex == 0 ? 80 : 40,
+                        left: touchedIndex == 0 ? 90 : 60,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: touchedIndex == 0
+                                ? const Color(0xFF1E63E9)
+                                : const Color(0xFFE64980),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            touchedIndex == 0 ? "Male\n307" : "Female\n168",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
 
-                Text("475",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black))
+                Text(
+                  "475",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: widget.isDark ? Colors.black : Colors.black,
+                  ),
+                ),
               ],
             ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.circle, size: 10, color: Color(0xFF1E63E9)),
+              SizedBox(width: 5),
+              Text("Male"),
+              SizedBox(width: 20),
+              Icon(Icons.circle, size: 10, color: Color(0xFFE64980)),
+              SizedBox(width: 5),
+              Text("Female"),
+            ],
           ),
         ],
       ),
     );
   }
 }
-
-class SideMenu extends StatefulWidget {
+ class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
 
   @override
@@ -425,7 +518,6 @@ class SideMenu extends StatefulWidget {
 class _SideMenuState extends State<SideMenu> {
   int selectedIndex = 0;
   bool isLogoutSelected = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -462,7 +554,7 @@ class _SideMenuState extends State<SideMenu> {
                 _menuItem(Icons.grid_view, "Dashboard", 0),
                 _menuItem(Icons.group, "Employee", 1),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
 
                 // 🔵 Upgrade Card
                 Container(
@@ -513,20 +605,20 @@ class _SideMenuState extends State<SideMenu> {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
                 // 🔵 BOTTOM MENU
-                _menuItem(Icons.person, "Profile", 2),
-                _menuItem(Icons.settings, "Settings", 3),
+                _bottomItem(Icons.person, "Profile", 2),
+                _bottomItem(Icons.settings, "Settings", 3),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
 
                 // 🔴 Logout
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      isLogoutSelected = true;   // 🔥 red highlight
-                      selectedIndex = -1;        // 🔥 remove menu selection
+                      isLogoutSelected = true;
+                      selectedIndex = -1;
                     });
                   },
                   child: Container(
@@ -557,6 +649,7 @@ class _SideMenuState extends State<SideMenu> {
                     ),
                   ),
                 ),
+
               ],
             ),
           ),
@@ -567,6 +660,7 @@ class _SideMenuState extends State<SideMenu> {
 
   ////////////////////////////////////////////////////
 
+  // 🔵 TOP MENU
   Widget _menuItem(IconData icon, String text, int index) {
     bool isSelected = selectedIndex == index;
 
@@ -574,20 +668,17 @@ class _SideMenuState extends State<SideMenu> {
       onTap: () {
         setState(() {
           selectedIndex = index;
-          isLogoutSelected = false; // 🔥 logout remove
+          isLogoutSelected = false;
         });
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
-          // 🔥 Dashboard blue, others grey
           color: isSelected
               ? (index == 0 ? Colors.blue : const Color(0xFFE5E7EB))
               : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-
-          // 🔥 shadow only dashboard
           boxShadow: (isSelected && index == 0)
               ? [
             BoxShadow(
@@ -613,8 +704,44 @@ class _SideMenuState extends State<SideMenu> {
                 color: isSelected
                     ? (index == 0 ? Colors.white : Colors.blue)
                     : Colors.grey,
-                fontWeight:
-                isSelected ? FontWeight.bold : FontWeight.normal,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _bottomItem(IconData icon, String text, int index) {
+    bool isSelected = selectedIndex == index;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+          isLogoutSelected = false;
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFE5E7EB) : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.blue : Colors.grey,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              text,
+              style: TextStyle(
+                color: isSelected ? Colors.blue : Colors.grey,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
@@ -623,3 +750,4 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 }
+
