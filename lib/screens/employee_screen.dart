@@ -665,7 +665,7 @@ class _DashboardUIState extends State<DashboardUI> {
   }
 }
 
-// નવું સ્ટેટ કાર્ડ
+
 Widget statCard(String title, String value, IconData icon, String percentage, bool isPositive) {
   return Container(
     width: 260,
