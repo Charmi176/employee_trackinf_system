@@ -1,499 +1,10 @@
-//
-// import 'package:flutter/material.dart';
-//
-// void main() {
-//   runApp(const EmployeeScreen());
-// }
-//
-// class EmployeeScreen extends StatelessWidget {
-//   const EmployeeScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData.dark(),
-//       home: const DashboardUI(),
-//     );
-//   }
-// }
-//
-// class DashboardUI extends StatefulWidget {
-//   const DashboardUI({super.key});
-//
-//   @override
-//   State<DashboardUI> createState() => _DashboardUIState();
-// }
-//
-// class _DashboardUIState extends State<DashboardUI> {
-//   final ScrollController _mainController = ScrollController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFF0D0D0D),
-//
-//       body: Column(
-//         children: [
-//
-//           /// 🔵 TOP SCROLLBAR
-//           SizedBox(
-//             height: 8,
-//             child: Scrollbar(
-//               controller: _mainController,
-//               thumbVisibility: true,
-//               child: SingleChildScrollView(
-//                 controller: _mainController,
-//                 scrollDirection: Axis.horizontal,
-//                 child: const SizedBox(width: 1500),
-//               ),
-//             ),
-//           ),
-//
-//           /// 🔵 MAIN CONTENT
-//           Expanded(
-//             child: Scrollbar(
-//               controller: _mainController,
-//               thumbVisibility: true,
-//               child: SingleChildScrollView(
-//                 controller: _mainController,
-//                 scrollDirection: Axis.horizontal,
-//                 child: Row(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//
-//                     /// 🔹 SIDEBAR
-//                     Container(
-//                       width: 250,
-//                       color: const Color(0xFF131313),
-//                       child: Column(
-//                         children: [
-//                           const SizedBox(height: 20),
-//                           const ListTile(
-//                             leading: Icon(Icons.dashboard, color: Colors.blue),
-//                             title: Text("DASHBOARD"),
-//                             subtitle: Text("WORKSPACE",
-//                                 style: TextStyle(color: Colors.grey)),
-//                           ),
-//                           menuItem(Icons.public, "Clients"),
-//                           menuItem(Icons.calendar_today, "Appointments"),
-//                           menuItem(Icons.shopping_cart, "Shop"),
-//                           menuItem(Icons.science, "Labs"),
-//                           menuItem(Icons.people, "Users"),
-//                           const Padding(
-//                             padding: EdgeInsets.all(10),
-//                             child: Text("MANAGEMENT",
-//                                 style: TextStyle(color: Colors.grey)),
-//                           ),
-//                           menuItem(Icons.chat, "Consult"),
-//                           menuItem(Icons.task, "Tasks"),
-//                           menuItem(Icons.layers, "Assets"),
-//                           menuItem(Icons.build, "Studio"),
-//                           menuItem(Icons.credit_card, "Register"),
-//                         ],
-//                       ),
-//                     ),
-//
-//                     /// 🔹 MAIN UI
-//                     SizedBox(
-//                       width: 1100,
-//                       child: Padding(
-//                         padding: const EdgeInsets.all(20),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//
-//                             /// SEARCH
-//                             Container(
-//                               height: 45,
-//                               padding: const EdgeInsets.symmetric(horizontal: 15),
-//                               decoration: BoxDecoration(
-//                                 color: const Color(0xFF1A1A1A),
-//                                 borderRadius: BorderRadius.circular(10),
-//                               ),
-//                               child: const Row(
-//                                 children: [
-//                                   Icon(Icons.search, color: Colors.grey),
-//                                   SizedBox(width: 10),
-//                                   Text("Search...",
-//                                       style: TextStyle(color: Colors.grey)),
-//                                 ],
-//                               ),
-//                             ),
-//
-//                             const SizedBox(height: 20),
-//
-//                             /// WELCOME
-//                             Container(
-//                               padding: const EdgeInsets.all(12),
-//                               decoration: BoxDecoration(
-//                                 color: const Color(0xFF1A1A1A),
-//                                 borderRadius: BorderRadius.circular(10),
-//                               ),
-//                               child: Row(
-//                                 children: [
-//                                   Container(
-//                                     padding: const EdgeInsets.all(6),
-//                                     decoration: BoxDecoration(
-//                                       color: Colors.blue.withOpacity(0.2),
-//                                       borderRadius: BorderRadius.circular(8),
-//                                     ),
-//                                     child: const Icon(Icons.auto_awesome,
-//                                         color: Colors.blue, size: 14),
-//                                   ),
-//                                   const SizedBox(width: 8),
-//                                   const Text("New",
-//                                       style: TextStyle(color: Colors.blue)),
-//                                   const SizedBox(width: 12),
-//                                   const Expanded(
-//                                     child: Text(
-//                                       "Welcome back to your dashboard, Gabe Oni",
-//                                       style: TextStyle(color: Colors.white),
-//                                       overflow: TextOverflow.ellipsis,
-//                                     ),
-//                                   ),
-//                                   const Text("Learn More →",
-//                                       style: TextStyle(color: Colors.orange)),
-//                                 ],
-//                               ),
-//                             ),
-//
-//                             const SizedBox(height: 20),
-//
-//                             /// CARDS
-//                             Wrap(
-//                               spacing: 20,
-//                               runSpacing: 20,
-//                               children: [
-//                                 simpleCard("REGISTERED USERS", "1,520"),
-//                                 simpleCard("MONTHLY VISITS", "15,837"),
-//                                 simpleCard("PROFITS", "\$135,965"),
-//                                 simpleCard("PORTFOLIO", "5,837"),
-//                               ],
-//                             ),
-//
-//                             const SizedBox(height: 20),
-//
-//                             /// 🔥 TABLE + NOTICE
-//                             Row(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Expanded(flex: 2, child: upcomingAppointments()),
-//                                 const SizedBox(width: 20),
-//                                 Expanded(child: noticeBoard()),
-//                               ],
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   static Widget menuItem(IconData icon, String title) {
-//     return ListTile(
-//       leading: Icon(icon, color: Colors.grey),
-//       title: Text(title, style: const TextStyle(color: Colors.grey)),
-//     );
-//   }
-// }
-//
-// /// 🔵 CARD
-// Widget simpleCard(String title, String value) {
-//   return Container(
-//     width: 230,
-//     padding: const EdgeInsets.all(16),
-//     decoration: BoxDecoration(
-//       color: const Color(0xFF1A1A1A),
-//       borderRadius: BorderRadius.circular(16),
-//       border: Border.all(color: Colors.white10),
-//     ),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(title, style: const TextStyle(color: Colors.grey)),
-//         const SizedBox(height: 10),
-//         Text(value,
-//             style: const TextStyle(
-//                 fontSize: 24, fontWeight: FontWeight.bold)),
-//       ],
-//     ),
-//   );
-// }
-//
-// /// 🔵 UPCOMING APPOINTMENTS (FIXED)
-// Widget upcomingAppointments() {
-//   final ScrollController horizontal = ScrollController();
-//   final ScrollController vertical = ScrollController();
-//
-//   return Container(
-//     padding: const EdgeInsets.all(16),
-//     decoration: BoxDecoration(
-//       color: const Color(0xFF1A1A1A),
-//       borderRadius: BorderRadius.circular(16),
-//       border: Border.all(color: Colors.white10),
-//     ),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: const [
-//             Text("Upcoming Appointments",
-//                 style: TextStyle(fontWeight: FontWeight.bold)),
-//             Text("View All →", style: TextStyle(color: Colors.grey)),
-//           ],
-//         ),
-//
-//         const SizedBox(height: 20),
-//
-//         /// 🔥 FIXED SCROLL (NO OVERFLOW)
-//         SizedBox(
-//           height: 300,
-//           child: Scrollbar(
-//             controller: vertical,
-//             thumbVisibility: true,
-//             child: SingleChildScrollView(
-//               controller: vertical,
-//               child: Scrollbar(
-//                 controller: horizontal,
-//                 thumbVisibility: true,
-//                 notificationPredicate: (notif) => notif.depth == 1,
-//                 child: SingleChildScrollView(
-//                   controller: horizontal,
-//                   scrollDirection: Axis.horizontal,
-//                   child: SizedBox(
-//                     width: 1000,
-//                     child: Column(
-//                       children: [
-//                         headerRow(),
-//                         const Divider(color: Colors.white10),
-//
-//                         tableRow("AP1053", "AW", "Amatron Wals", "Completed", Colors.green),
-//                         tableRow("AP1052", "FG", "Family Group", "Pending", Colors.orange),
-//                         tableRow("AP1049", "CT", "Cathy Tiana", "In progress", Colors.blue),
-//                         tableRow("AP1050", "HB", "Herman Beck", "Pending", Colors.orange),
-//                         tableRow("AP1051", "RF", "Raji Fash", "In progress", Colors.blue),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
-//
-//         const SizedBox(height: 10),
-//
-//         const Text("Showing 1-5 of 124 appointments",
-//             style: TextStyle(color: Colors.grey, fontSize: 12)),
-//       ],
-//     ),
-//   );
-// }
-//
-// Widget headerRow() {
-//   return const Row(
-//     children: [
-//       SizedBox(width: 100, child: Text("REFERENCE", style: TextStyle(color: Colors.grey))),
-//       SizedBox(width: 200, child: Text("CLIENT(S)", style: TextStyle(color: Colors.grey))),
-//       SizedBox(width: 200, child: Text("APPOINTMENT", style: TextStyle(color: Colors.grey))),
-//       SizedBox(width: 180, child: Text("BOOKING", style: TextStyle(color: Colors.grey))),
-//       SizedBox(width: 150, child: Text("STATUS", style: TextStyle(color: Colors.grey))),
-//     ],
-//   );
-// }
-//
-// Widget tableRow(String id, String initials, String name, String status, Color color) {
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(vertical: 12),
-//     child: Row(
-//       children: [
-//         SizedBox(width: 100, child: Text(id, style: const TextStyle(color: Colors.grey))),
-//
-//         SizedBox(
-//           width: 200,
-//           child: Row(
-//             children: [
-//               CircleAvatar(
-//                 radius: 14,
-//                 backgroundColor: color.withOpacity(0.2),
-//                 child: Text(initials, style: const TextStyle(fontSize: 10)),
-//               ),
-//               const SizedBox(width: 10),
-//               Text(name),
-//             ],
-//           ),
-//         ),
-//
-//         const SizedBox(width: 200, child: Text("9:00 PM, Sun")),
-//
-//         const SizedBox(width: 180, child: Text("Dr. Name")),
-//
-//         SizedBox(
-//           width: 150,
-//           child: Container(
-//             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//             decoration: BoxDecoration(
-//               color: color.withOpacity(0.2),
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             child: Text(status, style: TextStyle(color: color)),
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-//
-// /// 🔵 NOTICE BOARD
-// Widget noticeBoard() {
-//   return Container(
-//     height: 420, // 🔥 IMPORTANT (fix height)
-//     padding: const EdgeInsets.all(16),
-//     decoration: BoxDecoration(
-//       color: const Color(0xFF1A1A1A),
-//       borderRadius: BorderRadius.circular(16),
-//       border: Border.all(color: Colors.white10),
-//     ),
-//
-//     child: SingleChildScrollView( // 🔥 SCROLL FIX
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//
-//           /// TITLE
-//           const Text(
-//             "Notice Board",
-//             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//           ),
-//
-//           const SizedBox(height: 15),
-//
-//           /// TABS
-//           Row(
-//             children: const [
-//               Text("TODO", style: TextStyle(color: Colors.blue)),
-//               SizedBox(width: 20),
-//               Text("EVENTS", style: TextStyle(color: Colors.grey)),
-//             ],
-//           ),
-//
-//           const SizedBox(height: 6),
-//
-//           /// LINE
-//           Container(
-//             height: 2,
-//             width: 120,
-//             color: Colors.blue,
-//           ),
-//
-//           const SizedBox(height: 15),
-//
-//           /// INPUT
-//           Row(
-//             children: [
-//               Expanded(
-//                 child: Container(
-//                   height: 45,
-//                   padding: const EdgeInsets.symmetric(horizontal: 12),
-//                   decoration: BoxDecoration(
-//                     color: Colors.black,
-//                     borderRadius: BorderRadius.circular(10),
-//                   ),
-//                   child: const TextField(
-//                     decoration: InputDecoration(
-//                       hintText: "What to do today? *",
-//                       hintStyle: TextStyle(color: Colors.grey),
-//                       border: InputBorder.none,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               const SizedBox(width: 10),
-//               Container(
-//                 height: 45,
-//                 padding: const EdgeInsets.symmetric(horizontal: 18),
-//                 decoration: BoxDecoration(
-//                   color: Colors.blue,
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//                 child: const Center(
-//                   child: Text("ADD",
-//                       style: TextStyle(color: Colors.white)),
-//                 ),
-//               )
-//             ],
-//           ),
-//
-//           const SizedBox(height: 20),
-//
-//           /// TODO LIST
-//           todoItem("Patient rounds in Ward 1 & 2", false),
-//           todoItem("Prepare Ora presentation", true),
-//           todoItem("Print Payment Receipts", false),
-//           todoItem("Submit Supplier Voucher", false),
-//
-//           const SizedBox(height: 20),
-//
-//           /// FLOAT BUTTON
-//           Align(
-//             alignment: Alignment.bottomRight,
-//             child: Container(
-//               padding: const EdgeInsets.all(12),
-//               decoration: const BoxDecoration(
-//                 color: Colors.blue,
-//                 shape: BoxShape.circle,
-//               ),
-//               child: const Icon(Icons.checklist, size: 20),
-//             ),
-//           )
-//         ],
-//       ),
-//     ),
-//   );
-// }
-// Widget todoItem(String text, bool done) {
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(vertical: 8),
-//     child: Row(
-//       children: [
-//         Icon(
-//           done ? Icons.check_box : Icons.check_box_outline_blank,
-//           color: done ? Colors.orange : Colors.grey,
-//           size: 18,
-//         ),
-//         const SizedBox(width: 10),
-//         Expanded(
-//           child: Text(
-//             text,
-//             style: TextStyle(
-//               decoration: done ? TextDecoration.lineThrough : null,
-//               color: done ? Colors.grey : Colors.white,
-//             ),
-//           ),
-//         ),
-//         const Icon(Icons.more_vert, size: 18, color: Colors.grey)
-//       ],
-//     ),
-//   );
-// }
-import 'package:flutter/gestures.dart'; // આ ખાસ ઉમેરવું
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const EmployeeScreen());
 }
 
-// માઉસથી સ્ક્રોલબાર પકડીને ખેંચવા માટે આ ક્લાસ જરૂરી છે
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -509,7 +20,7 @@ class EmployeeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      scrollBehavior: MyCustomScrollBehavior(), // અહીં એક્ટિવેટ કર્યું
+      scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData.dark(),
       home: const DashboardUI(),
     );
@@ -524,8 +35,8 @@ class DashboardUI extends StatefulWidget {
 }
 
 class _DashboardUIState extends State<DashboardUI> {
-  // હોરીઝોન્ટલ સ્ક્રોલ માટે કંટ્રોલર
   final ScrollController _horizontalController = ScrollController();
+  Map<String, bool> iconColorStates = {};
 
   @override
   Widget build(BuildContext context) {
@@ -534,12 +45,11 @@ class _DashboardUIState extends State<DashboardUI> {
       body: Scrollbar(
         controller: _horizontalController,
         thumbVisibility: true,
-        thickness: 10, // બાર થોડો જાડો રાખ્યો જેથી પકડવામાં સરળતા રહે
-        interactive: true, // આનાથી તમે બારને ખેંચી શકશો
+        thickness: 10,
+        interactive: true,
         child: SingleChildScrollView(
           controller: _horizontalController,
           scrollDirection: Axis.horizontal,
-          // હંમેશા સ્ક્રોલ થાય તે માટે physics ઉમેર્યું
           physics: const AlwaysScrollableScrollPhysics(),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -557,49 +67,55 @@ class _DashboardUIState extends State<DashboardUI> {
                       title: Text("DASHBOARD"),
                       subtitle: Text("WORKSPACE", style: TextStyle(color: Colors.grey, fontSize: 10)),
                     ),
-                    menuItem(Icons.public, "Clients"),
-                    menuItem(Icons.calendar_today, "Appointments"),
-                    menuItem(Icons.people, "Users"),
+                    menuItem(Icons.public, "Clients", activeColor: Colors.blue),
+                    menuItem(Icons.calendar_today, "Appointments", activeColor: Colors.orange),
+                    menuItem(Icons.shopping_cart, "shop", activeColor: Colors.pink),
+                    menuItem(Icons.science, "labs", activeColor: Colors.cyan),
+                    menuItem(Icons.people, "Users", activeColor: Colors.teal),
                     const Padding(
                       padding: EdgeInsets.all(15),
                       child: Text("MANAGEMENT", style: TextStyle(color: Colors.grey, fontSize: 12)),
                     ),
-                    menuItem(Icons.chat, "Consult"),
-                    menuItem(Icons.task, "Tasks"),
+                    menuItem(Icons.chat_outlined, "Consult", activeColor: Colors.indigoAccent),
+                    menuItem(Icons.list_alt, "Tasks", activeColor: Colors.redAccent),
+                    menuItem(Icons.layers, "Assets", activeColor: Colors.deepPurple),
+                    menuItem(Icons.build_circle_outlined, "Studio", activeColor: Colors.blueAccent),
+                    menuItem(Icons.badge_outlined, "Register", activeColor: Colors.amber),
                   ],
                 ),
               ),
 
               /// 🔹 MAIN UI
               SizedBox(
-                width: 1200, // આ પહોળાઈ જો સ્ક્રીન કરતા વધુ હશે તો જ સ્ક્રોલબાર ચાલશે
+                width: 1200,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// SEARCH BAR
                       searchBar(),
                       const SizedBox(height: 25),
-
-                      /// WELCOME BANNER
                       welcomeBanner(),
                       const SizedBox(height: 25),
 
-                      /// STAT CARDS
-                      Wrap(
-                        spacing: 20,
-                        runSpacing: 20,
-                        children: [
-                          statCard("REGISTERED USERS", "1,520", Icons.people, "12%", true),
-                          statCard("MONTHLY VISITS", "15,837", Icons.visibility, "8%", true),
-                          statCard("PROFITS", "\$135,965", Icons.account_balance, "5%", false),
-                        ],
+                      /// 🔹 4 STAT CARDS IN A ROW (હવે અહીં ફિક્સ કર્યું છે)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            statCard("REGISTERED USERS", "1,520", Icons.people, "12%", true),
+                            const SizedBox(width: 20),
+                            statCard("MONTHLY VISITS", "15,837", Icons.visibility, "10.5%", true),
+                            const SizedBox(width: 20),
+                            statCard("PROFITS", "\$135,965", Icons.account_balance, "50.9%", true),
+                            const SizedBox(width: 20),
+                            statCard("PORTFOLIO", "5,837", Icons.bar_chart, "10.5%", false),
+                          ],
+                        ),
                       ),
-
                       const SizedBox(height: 25),
 
-                      /// TABLE + NOTICE
+                      /// 🔹 TABLES & NOTICE BOARD
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -620,11 +136,60 @@ class _DashboardUIState extends State<DashboardUI> {
     );
   }
 
-  // --- Widgets ---
-  Widget menuItem(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.grey, size: 20),
-      title: Text(title, style: const TextStyle(color: Colors.grey)),
+  Widget menuItem(IconData icon, String title, {Color activeColor = Colors.green}) {
+    bool isSelected = iconColorStates[title] ?? false;
+    return InkWell(
+      onTap: () => setState(() => iconColorStates[title] = !isSelected),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Row(
+          children: [
+            Icon(icon, color: isSelected ? activeColor : Colors.grey, size: 20),
+            const SizedBox(width: 15),
+            Text(title, style: TextStyle(color: isSelected ? Colors.white : Colors.grey)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget statCard(String title, String value, IconData icon, String percentage, bool isPositive) {
+    return Container(
+      width: 260,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF131313),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title, style: const TextStyle(color: Colors.grey, fontSize: 11, letterSpacing: 1)),
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(color: const Color(0xFF1A1A1A), borderRadius: BorderRadius.circular(8)),
+                child: Icon(icon, color: Colors.grey, size: 18),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 15),
+          Row(
+            children: [
+              Icon(isPositive ? Icons.arrow_upward : Icons.arrow_downward, color: isPositive ? Colors.green : Colors.red, size: 14),
+              const SizedBox(width: 4),
+              Text(percentage, style: TextStyle(color: isPositive ? Colors.green : Colors.red, fontWeight: FontWeight.bold)),
+              const SizedBox(width: 8),
+              const Text("Since last month", style: TextStyle(color: Colors.grey, fontSize: 11)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -663,50 +228,265 @@ class _DashboardUIState extends State<DashboardUI> {
       ),
     );
   }
+
+  Widget upcomingAppointments() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF131313), // ડાર્ક બેકગ્રાઉન્ડ ઈમેજ મુજબ
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Upcoming Appointments",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white)),
+              TextButton(
+                onPressed: () {},
+                child: const Text("View All →", style: TextStyle(color: Colors.grey)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: 1000, // REFERENCE કોલમ માટે થોડી પહોળાઈ વધારી
+              child: Column(
+                children: [
+                  headerRow(),
+                  const Divider(color: Colors.white10, height: 30),
+                  tableRow("AP1053", "AW", "Amatron Wals", "", "9:00 PM, Sun, Mar 13th", "Cardiology: Dr. Joal", "+6", "Completed", Colors.green, "Surgery"),
+                  tableRow("AP1052", "FG", "Family Group: New Rufe", "+2", "9:00 PM, Sun, Mar 13th", "Dr. Shie", "", "Pending", Colors.orange, "Check-up"),
+                  tableRow("AP1049", "", "Cathy Tiana", "", "12:30 PM, Sun, Dec 26th", "Dr. Rav", "", "In progress", Colors.blue, "Urgent", isImage: true),
+                  tableRow("AP1050", "HB", "Herman Beck", "+2", "2:30 PM, Thu, Dec 16th", "Dr. Gabe", "", "Pending", Colors.orange, "Consultation"),
+                  tableRow("AP1051", "RF", "Raji Fash", "", "4:00 PM, Mon, Dec 13th", "Dr. Gabe", "+2", "In progress", Colors.blue, "Urgent"),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+// 🔹 Header Row માં REFERENCE ઉમેર્યું
+  Widget headerRow() {
+    return const Row(
+      children: [
+        SizedBox(width: 120, child: Text("REFERENCE", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+        SizedBox(width: 230, child: Text("CLIENT(S)", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+        SizedBox(width: 200, child: Text("APPOINTMENT ↓", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+        SizedBox(width: 180, child: Text("BOOKING", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+        SizedBox(width: 150, child: Text("STATUS", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+        SizedBox(width: 100, child: Text("TAGS", style: TextStyle(color: Colors.grey, fontSize: 12, letterSpacing: 1))),
+      ],
+    );
+  }
+
+// 🔹 Table Row માં REFERENCE અને ઈમેજ મુજબની ડિઝાઈન
+  Widget tableRow(String ref, String initials, String name, String badge, String time, String booking, String bookBadge, String status, Color color, String tag, {bool isImage = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          // Reference
+          SizedBox(width: 120, child: Text(ref, style: const TextStyle(color: Colors.grey, fontSize: 13))),
+
+          // Client
+          SizedBox(
+            width: 230,
+            child: Row(
+              children: [
+                if (isImage)
+                  const CircleAvatar(radius: 15, backgroundImage: NetworkImage('https://via.placeholder.com/150'))
+                else
+                  CircleAvatar(radius: 15, backgroundColor: color.withValues(alpha: 0.2),
+                      child: Text(initials, style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold))),
+                const SizedBox(width: 12),
+                Expanded(child: Text(name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
+                if (badge.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(color: Colors.blue.withValues(alpha: 0.8), borderRadius: BorderRadius.circular(12)),
+                    child: Text(badge, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                  ),
+              ],
+            ),
+          ),
+
+          // Appointment Time
+          SizedBox(width: 200, child: Text(time, style: const TextStyle(fontSize: 13, color: Colors.white70))),
+
+          // Booking Info
+          SizedBox(
+            width: 180,
+            child: Row(
+              children: [
+                Expanded(child: Text(booking, style: const TextStyle(fontSize: 13))),
+                if (bookBadge.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(left: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(4)),
+                    child: Text(bookBadge, style: const TextStyle(color: Colors.grey, fontSize: 10)),
+                  ),
+              ],
+            ),
+          ),
+
+          // Status Badge
+          SizedBox(
+            width: 150,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: color.withValues(alpha: 0.2)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(radius: 3, backgroundColor: color),
+                  const SizedBox(width: 8),
+                  Text(status, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
+
+          // Tags
+          SizedBox(
+            width: 100,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(6)),
+              child: Text(tag, style: const TextStyle(color: Colors.grey, fontSize: 11), textAlign: TextAlign.center),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget noticeBoard() {
+    return Container(
+      height: 480,
+      padding: const EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Notice Board", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 25),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const Text("TODO", style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 13)),
+                        const SizedBox(height: 10),
+                        Container(height: 2, color: Colors.blueAccent),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const Text("EVENTS", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13)),
+                        const SizedBox(height: 10),
+                        Container(height: 1, color: Colors.white10),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              todoItem("Patient rounds in Ward 1 & 2", false),
+              todoItem("Prepare Ora presentation", true),
+              todoItem("Print Payment Receipts", false),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(color: Colors.blueAccent, shape: BoxShape.circle, boxShadow: [BoxShadow(color: Colors.blueAccent.withValues(alpha: 0.4), blurRadius: 10, spreadRadius: 2)]),
+              child: const Icon(Icons.checklist, color: Colors.white, size: 22),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget todoItem(String text, bool isDone) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      decoration: BoxDecoration(color: isDone ? Colors.white.withValues(alpha: 0.04) : Colors.transparent, borderRadius: BorderRadius.circular(8)),
+      child: Row(
+        children: [
+          Container(
+            width: 18,
+            height: 18,
+            decoration: BoxDecoration(color: isDone ? Colors.orange : Colors.transparent, border: Border.all(color: isDone ? Colors.orange : Colors.grey, width: 1.5), borderRadius: BorderRadius.circular(4)),
+            child: isDone ? const Center(child: Icon(Icons.check, size: 14, color: Colors.white)) : null,
+          ),
+          const SizedBox(width: 15),
+          Expanded(child: Text(text, style: TextStyle(fontSize: 14, color: isDone ? Colors.grey : Colors.white, decoration: isDone ? TextDecoration.lineThrough : TextDecoration.none))),
+        ],
+      ),
+    );
+  }
 }
 
-// નવું સ્ટેટ કાર્ડ
-Widget statCard(String title, String value, IconData icon, String percentage, bool isPositive) {
-  return Container(
-    width: 260,
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: const Color(0xFF131313),
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: Colors.white10),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+// Common Widgets
+Widget headerRow() {
+  return const Padding(
+    padding: EdgeInsets.symmetric(vertical: 8.0),
+    child: Row(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title, style: const TextStyle(color: Colors.grey, fontSize: 11, letterSpacing: 1)),
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(color: const Color(0xFF1A1A1A), borderRadius: BorderRadius.circular(8)),
-              child: Icon(icon, color: Colors.grey, size: 18),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Icon(isPositive ? Icons.arrow_upward : Icons.arrow_downward,
-                color: isPositive ? Colors.green : Colors.red, size: 14),
-            const SizedBox(width: 4),
-            Text(percentage, style: TextStyle(color: isPositive ? Colors.green : Colors.red, fontWeight: FontWeight.bold)),
-            const SizedBox(width: 8),
-            const Text("Since last month", style: TextStyle(color: Colors.grey, fontSize: 11)),
-          ],
-        ),
+        SizedBox(width: 250, child: Text("CLIENT(S)", style: TextStyle(color: Colors.grey, fontSize: 11))),
+        SizedBox(width: 200, child: Text("APPOINTMENT", style: TextStyle(color: Colors.grey, fontSize: 11))),
+        SizedBox(width: 200, child: Text("BOOKING", style: TextStyle(color: Colors.grey, fontSize: 11))),
+        SizedBox(width: 150, child: Text("STATUS", style: TextStyle(color: Colors.grey, fontSize: 11))),
       ],
     ),
   );
 }
 
-// બાકીના ટેબલ અને નોટિસ બોર્ડ (તમારા કોડ મુજબ)
-Widget upcomingAppointments() => Container(height: 350, decoration: BoxDecoration(color: const Color(0xFF1A1A1A), borderRadius: BorderRadius.circular(16)));
-Widget noticeBoard() => Container(height: 350, decoration: BoxDecoration(color: const Color(0xFF1A1A1A), borderRadius: BorderRadius.circular(16)));
+Widget tableRow(String initials, String name, String badge, String time, String doctor, String docBadge, String status, Color color, String tag, {bool isImage = false}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 12),
+    child: Row(
+      children: [
+        SizedBox(
+          width: 250,
+          child: Row(
+            children: [
+              CircleAvatar(radius: 14, backgroundColor: color.withValues(alpha: 0.2), child: Text(initials, style: const TextStyle(fontSize: 10))),
+              const SizedBox(width: 10),
+              Text(name, style: const TextStyle(fontSize: 13)),
+            ],
+          ),
+        ),
+        SizedBox(width: 200, child: Text(time, style: const TextStyle(fontSize: 13))),
+        SizedBox(width: 200, child: Text(doctor, style: const TextStyle(fontSize: 13))),
+        SizedBox(width: 150, child: Text(status, style: TextStyle(color: color, fontSize: 11))),
+      ],
+    ),
+  );
+}
