@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart'; // flutterfire configure પછી generate થાય છે
 import 'screens/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔥 Firebase initialize
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -13,10 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Employee Dashboard',
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF3F4F6),
-      ),
-      home: HomeScreen(), // 🔥 FIX
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFF3F4F6)),
+      home: HomeScreen(),
     );
   }
 }

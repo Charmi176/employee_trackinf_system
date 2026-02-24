@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "783611658147",
+    "project_id": "emp-desh",
+    "storage_bucket": "emp-desh.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783611658147:android:28e915abb230116ca1a416",
+        "android_client_info": {
+          "package_name": "com.example.employee_tracking_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVSWROezGrrwuNWRyzyDWVG2AC-jZITzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

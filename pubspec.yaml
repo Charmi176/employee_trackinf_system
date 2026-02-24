@@ -31,6 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Firebase Core (Required)
+  firebase_core: ^3.8.0
+
+  #  Optional Firebase packages (use as per need)
+  firebase_auth: ^5.3.0
+  cloud_firestore: ^5.4.0
+  firebase_storage: ^12.3.0
+
 
 
   # The following adds the Cupertino Icons font to your application.

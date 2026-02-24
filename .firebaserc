@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "emp-desh",
+    "employee": "employee-attendance-trac-f4684"
+  },
+  "targets": {},
+  "etags": {}
+}
