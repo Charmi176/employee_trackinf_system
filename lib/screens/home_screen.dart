@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'employee_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -661,7 +662,9 @@ class _SideMenuState extends State<SideMenu> {
   ////////////////////////////////////////////////////
 
   // 🔵 TOP MENU
-  Widget _menuItem(IconData icon, String text, int index) {
+  Widget _menuItem(IconData icon, String text, int index,
+      {bool showBadge = false}) {
+
     bool isSelected = selectedIndex == index;
 
     return GestureDetector(
@@ -670,7 +673,20 @@ class _SideMenuState extends State<SideMenu> {
           selectedIndex = index;
           isLogoutSelected = false;
         });
+
+        // 🔥 IMPORTANT NAVIGATION
+        if (index == 1) { // Employee
+          Navigator.pop(context); // Drawer close
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EmployeeScreen(),
+            ),
+          );
+        }
       },
+
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -679,15 +695,6 @@ class _SideMenuState extends State<SideMenu> {
               ? (index == 0 ? Colors.blue : const Color(0xFFE5E7EB))
               : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: (isSelected && index == 0)
-              ? [
-            BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            )
-          ]
-              : [],
         ),
         child: Row(
           children: [
@@ -704,7 +711,6 @@ class _SideMenuState extends State<SideMenu> {
                 color: isSelected
                     ? (index == 0 ? Colors.white : Colors.blue)
                     : Colors.grey,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
           ],
