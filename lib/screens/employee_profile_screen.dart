@@ -281,7 +281,7 @@ class ActiveProjectsTable extends StatelessWidget {
   Widget _row(String n, String r, String s, Color c, double p) => Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Row(children: [Expanded(flex: 3, child: Text(n, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold))), Expanded(flex: 2, child: Text(r, style: const TextStyle(fontSize: 12))), Expanded(flex: 2, child: Text(s, style: TextStyle(color: c, fontSize: 11, fontWeight: FontWeight.bold))), Expanded(flex: 2, child: LinearProgressIndicator(value: p, color: c, backgroundColor: Colors.grey[100]))]));
 }
 
-// --- 4. TEAM MEMBERS ---
+
 class TeamMembersWidget extends StatelessWidget {
   const TeamMembersWidget({super.key});
   @override
@@ -302,7 +302,7 @@ class TeamMembersWidget extends StatelessWidget {
       ), title: Text(n, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)), subtitle: Text(p, style: const TextStyle(fontSize: 11)), trailing: const Icon(Icons.mail_outline, size: 18));
 }
 
-// --- 5. UPCOMING TIME OFF ---
+
 class UpcomingTimeOffWidget extends StatelessWidget {
   const UpcomingTimeOffWidget({super.key});
   @override
