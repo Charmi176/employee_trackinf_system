@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'employee_client_screen.dart';
+import 'employee_work_sheet.dart';
 void main() {
   runApp(const EmployeeScreen());
 }
@@ -81,6 +82,7 @@ class _DashboardUIState extends State<DashboardUI> {
                     menuItem(Icons.layers, "Assets", activeColor: Colors.deepPurple),
                     menuItem(Icons.build_circle_outlined, "Studio", activeColor: Colors.blueAccent),
                     menuItem(Icons.badge_outlined, "Register", activeColor: Colors.amber),
+
                   ],
                 ),
               ),
@@ -138,8 +140,30 @@ class _DashboardUIState extends State<DashboardUI> {
 
   Widget menuItem(IconData icon, String title, {Color activeColor = Colors.green}) {
     bool isSelected = iconColorStates[title] ?? false;
+
     return InkWell(
-      onTap: () => setState(() => iconColorStates[title] = !isSelected),
+      onTap: () {
+
+        // 🔥 Clients Screen Navigation
+        if (title == "Clients") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ClientScreen(),
+            ),
+          );
+        }
+
+        if (title == "Tasks") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const WorkLogScreen(),
+            ),
+          );
+        }
+        setState(() => iconColorStates[title] = !isSelected);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Row(
@@ -152,6 +176,7 @@ class _DashboardUIState extends State<DashboardUI> {
       ),
     );
   }
+
 
   Widget statCard(String title, String value, IconData icon, String percentage, bool isPositive) {
     return Container(

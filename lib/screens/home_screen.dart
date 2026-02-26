@@ -2,7 +2,7 @@
   import 'package:fl_chart/fl_chart.dart';
   import 'employee_screen.dart';
   import 'employee_profile_screen.dart';
-
+  import  'employee_settings_screen.dart';
 
   class HomeScreen extends StatefulWidget {
     const HomeScreen({super.key});
@@ -747,10 +747,13 @@
             );
           }
 
-          // 🔥 SETTINGS
+
           if (index == 3) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Settings Clicked")),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingsScreen(),
+              ),
             );
           }
         },
